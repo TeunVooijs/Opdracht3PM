@@ -1,0 +1,35 @@
+Maak een menu
+met:
+    -stop
+    -Heelschoon(alle cellen in wereld dood)
+    -schoon(alle cellen in view dood)
+    -move(verschuif view naar links of rechts)
+    -parameters(submenu om parameters in te stellen)
+    -random(vul de view met random dode en levende cellen. rest van de wereld blijft onveranderd)
+    -toggle(verander cursor positie tussen leven en dood. positie kan veranderd worden met bijv. wasd)
+    -glidergun(vul de view met glidergun)
+    -een(er wordt één generatie gedaan)
+    -gaan(er wordt een serie generaties gedaan en allemaal getoond)
+
+
+stuur per coord door naar pos_adder
+
+
+raster:
+(i-1,j-1)   (i-1,j)     (i-1,j+1)
+(i,j-1)     (i,j)       (i,j+1)
+(i+1,j-1)   (i+1,j)     (i+1,j+1)
+
+
+generatie
+mat -> mat 2
+controleer voor elke hoogte i en breedte j of één aanliggende (raster)
+
+
+Levende cell
+voor 1 omliggend -> dood
+2,3 omliggend -> blijven leven
+>3 -> dood
+
+Dode cell
+3 omliggend -> levend

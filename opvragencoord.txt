@@ -1,0 +1,21 @@
+
+    int g,z=0;
+    
+    cout << "Geef aantal cords "<< endl;
+    cin >> z;
+
+    int x[z]={0},y[z]={0};
+    for (int i = 0; i < z; i++){
+        g=i+1;
+        cout << "Geef x coordinaat " << g << " :" << endl;
+        cin >> x[i];
+        cout << "Geef y coordinaat " << g << " :" << endl; 
+        cin >> y[i];
+    }
+    cout << endl;
+    
+    for (int i = 0; i < z; i++){
+        cout << x[i] << " " << y[i] << endl;
+    }
+    matrix(x,y,z);
+    
