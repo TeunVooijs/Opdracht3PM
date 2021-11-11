@@ -121,8 +121,12 @@ public:
 
 
     void live(){
+
+        int x[5]={1,2,3,4,5};
+        int y[5]={2,4,2,5,1};
+
         for (int i=0; i< size; i++){
-            mat[pos_x[i]][pos_y[i]]={true};
+            mat[x[i]][y[i]]={true};
         }   
     }
 
@@ -156,7 +160,7 @@ public:
                     cout << "X" << " ";
                 }
                 else{
-                    cout << /*mat[i][j]*/ " "; //<< " ";
+                    cout << /*mat[i][j]*/ "." << " ";
                 }
             }
             cout << endl;
@@ -176,7 +180,7 @@ void glidergun(){
 
 
     mat.parx1=0;
-    mat.parx2=120;
+    mat.parx2=50;
     mat.pary1=5;
     mat.pary2=30;
 
