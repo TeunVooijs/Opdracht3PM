@@ -1,6 +1,4 @@
 #include <iostream>
-#include <fstream>
-#include <windows.h>
 using namespace std;
 
 
@@ -8,17 +6,16 @@ using namespace std;
 class life
 {
 public:
-    life();
+    void print();
     void gen();
     void gen2();
     bool menu();
-    void live();
-    void show();
-    void print();
-    void cursor();
+    void cursor(int keus,int count);
+    void toggle();
     void heelschoon();
     void clear_view();
     void parameters();
+    life();
 private:
 
     static const int MAX=1000;
@@ -27,21 +24,46 @@ private:
     int varfalse,vartrue;
     bool mat[MAX][MAX]={{false}};
     bool mat2[MAX][MAX]={{false}};
-
+    int cursorposx,cursorposy,blax;
+    char chartrue,charfalse;
+    char charcursor,charcursortrue;
 };
 
 life::life(){
+    cursorposx=40;
+    cursorposy=13;
+    blax=1;
     view_breedte=80;
     view_hoogte=25;
     viewx=0;
     viewy=0;
-
-
+    chartrue='X';
+    charfalse='.';
+    charcursortrue='$';
+    charcursor='%';
 }
 
-
-
-
+void life::print(){     
+    for (int i=viewx; i < view_hoogte; i++){
+        for(int j=viewy; j<view_breedte; j++){
+            if(i==cursorposy && j==cursorposx){
+                if (mat[i][j]){
+                    cout << charcursortrue << " ";
+                }
+                else if(mat[i][j]==false){
+                    cout << charcursor << " ";
+                }
+            }
+            else if(mat[i][j]){
+                cout << chartrue << " "; 
+            }
+            else{
+                cout << charfalse << " ";
+            }
+        }
+        cout << endl;
+    }
+}
 
 
 void life::gen(){
@@ -102,29 +124,38 @@ void life::gen(){
 }
 
 void life::gen2(){
+    bool cur,next;
+    
     for (int i = 0; i < MAX; i++){
         for (int j = 0; j < MAX; j++){
             int aanliggend=0;
+            cur=mat[i][j];
+            next=false;
             for (int m = -1; m <= 1; m++){
-                for (int n = -1; n <= 1; n++)                {
+                for (int n = -1; n <= 1; n++){
                     int check_x=i+m;
                     int check_y=j+n;
-                    if (m!=0 && n!=0 && mat[check_x][check_y]
-                        && (!(check_x>MAX) || !(check_x<0)) 
-                        && (!(check_y>MAX) || !(check_y<0))){
+                    if ((m!=0 && n!=0) && (mat[check_x][check_y])
+                        && (check_x<MAX && check_x>=0) 
+                        && (check_y<MAX && check_y>=0)){
                         aanliggend+=1;
                     }
                 }
             }
+
             if(aanliggend==2){
-                mat2[i][j]=mat[i][j];
+                next=cur;
+                cout << aanliggend << endl;
+                // mat2[i][j]=mat[i][j];
             }
             else if(aanliggend==3){
-                mat2[i][j]={true};
+                next=true;
+                // mat2[i][j]={true};
             }
-            else{
-                mat2[i][j]={false};
-            }
+            // else{
+                // mat2[i][j]={false};
+            // }
+            mat2[i][j]=next;
         }
     }
     
@@ -134,10 +165,35 @@ void life::gen2(){
         }
     }
     
-
-
-
 }
+
+void life::toggle(){
+    int aantal=0;
+    if(mat[cursorposy][cursorposx]==true){
+        mat[cursorposy][cursorposx]={false};
+    }
+    else{
+        mat[cursorposy][cursorposx]={true};
+    }
+
+    for (int i = 0; i < MAX; i++)
+    {
+        for (int j = 0; j < MAX; j++)
+        {
+            mat[j][j]=mat2[i][j];
+            
+            if (mat[i][j]==true)
+            {
+                aantal+=1;
+            }
+            
+        }
+        
+    }
+    // cout << aantal << endl;
+}
+
+
 
 void life::heelschoon(){
     for (int i = 0; i < MAX; i++){
@@ -167,34 +223,46 @@ void life::clear_view(){
     }
 }
 
-void life::cursor(){
-
-
-
-
-}
-
-
-
-void life::print(){     
-    for (int i = viewy; i < view_hoogte; i++){
-        for (int j = viewx; j < view_breedte; j++){
-            if (mat[i][j]){
-                cout << "X" << " ";
-            }
-            else{
-                cout << " "; //<< " ";
-            }
+void life::cursor(int keus,int count){
+    switch (keus)
+    {
+    case 'w':
+        for (int i = 0; i < count; i++){
+            cursorposy-=1;
         }
-        cout << endl;
-    } 
+        break;
+    case 'a':
+        for (int i = 0; i < count; i++){
+            cursorposx-=1;
+        }    
+        break;
+    case 'd':
+        for (int i = 0; i < count; i++){
+            cursorposx+=1;
+        }
+        break;
+    case 'z':
+        for (int i = 0; i < count; i++){
+            cursorposy+=1;
+        }
+        break;
+    default:
+        break;
+    }
+   
+
+
 }
 
-bool menu(){
+
+
+
+
+bool menu(life & my_life){
     char keus;
-    life my_life;
-    
+    int count=1;
     cout << "Geef letter: " << endl;
+    
     
     // cin.get(keus,100);
     cin >> keus;
@@ -212,37 +280,35 @@ bool menu(){
     case 'r': case 'R':
         break;
     case 't': case 'T':
+        // my_life.print();
+        my_life.toggle();
         break;
     case 'e': case 'E':
         break;
     case 'g': case 'G':
-        // run();
-        // matrix();
+        my_life.gen2();
         break;
     case 'v': case 'V':
         // view();
-        break;    
+        break;
+    case 'w':case 'a':case 'z':case 'd':
+        my_life.cursor(keus,count);
+        // my_life.print();
     default:
         break;
     } 
     return false;
 
-
-
-
-
 }
 
 
 
-
-
-
-
 int main(){
+    life kanker;;
 
     while (true){
-        if (menu()){return 0;}
+        kanker.print();
+        if (menu(kanker)){return 0;}
     }
     return 0;
     
