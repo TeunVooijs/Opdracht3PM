@@ -141,6 +141,7 @@ void life::gen2(){
                         aanliggend+=1;
                     }
                 }
+                
             }
 
             if(aanliggend==2){
