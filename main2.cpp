@@ -135,7 +135,7 @@ void life::gen2(){
                 for (int n = -1; n <= 1; n++){
                     int check_x=i+m;
                     int check_y=j+n;
-                    if ((m!=0 && n!=0) && (mat[check_x][check_y])
+                    if ((m!=0 || n!=0) && (mat[check_x][check_y])
                         && (check_x<MAX && check_x>=0) 
                         && (check_y<MAX && check_y>=0)){
                         aanliggend+=1;
