@@ -38,3 +38,60 @@ voor 1 omliggend -> dood
 
 Dode cell
 3 omliggend -> levend
+
+
+menu
+
+(S)toppen               Done
+(H)eelschoon            Done
+s(C)hoon                Done
+(M)ove view             Done
+(P)arameters            Done
+(R)andom
+(T)oggle                Done
+G(l)idergun
+(E)en                   Done
+(G)aan                  Done
+
+
+Cursorpositie           Done
+Borders                 Done
+
+
+
+
+
+
+
+
+Als cursor pos is t > dan bordern
+dan move view t naar pos
+
+
+als view is 80-100
+pos is 75
+pos-view
+
+pos is 105
+pos-view
+
+
+
+view breedte is 50
+20--100
+afwijking=cursorpos-viewx
+cursor pos =125
+105
+
+cursorpos-viewx if 
+
+125
+75
+
+
+
+
+15
+
+viewy+15
+viewhoogte+15
